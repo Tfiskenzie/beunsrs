@@ -75,7 +75,7 @@ section{
 }
 
 /* =========================
-HERO (UPDATED FONT SIZE)
+HERO
 ========================= */
 .hero{
   height:100vh;
@@ -86,7 +86,7 @@ HERO (UPDATED FONT SIZE)
 }
 
 .hero h1{
-  font-size:80px; /* REDUCED AS REQUESTED */
+  font-size:80px;
   letter-spacing:10px;
 }
 
@@ -146,13 +146,14 @@ BUSINESS
 }
 
 /* =========================
-VINYL SPOTIFY SECTION (NEW)
+VINYL (UPDATED TO PLAY AUDIO)
 ========================= */
 .vinyl-section{
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
+  gap:20px;
 }
 
 .vinyl{
@@ -163,10 +164,6 @@ VINYL SPOTIFY SECTION (NEW)
   position:relative;
   cursor:pointer;
   transition:.3s;
-}
-
-.vinyl:hover{
-  transform:scale(1.05);
 }
 
 .record{
@@ -186,7 +183,6 @@ VINYL SPOTIFY SECTION (NEW)
   font-weight:800;
 }
 
-/* spinning */
 .vinyl.playing{
   animation:spin 2.5s linear infinite;
 }
@@ -197,34 +193,40 @@ VINYL SPOTIFY SECTION (NEW)
 }
 
 /* =========================
-POSTCARD COLLAGE (NEW)
+POSTCARD COLLAGE (UPDATED → SINGLE IMAGE)
 ========================= */
 .postcard{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  transform:rotate(-1deg);
-}
-
-.postcard img{
   width:100%;
-  height:160px;
-  object-fit:cover;
-  border-radius:10px;
-  box-shadow:0 10px 20px rgba(0,0,0,.15);
+  height:500px;
+  background:url("https://picsum.photos/1200/800?random=99");
+  background-size:cover;
+  background-position:center;
+  border-radius:20px;
+  box-shadow:0 20px 50px rgba(0,0,0,.15);
 }
 
 /* =========================
-BUTTON
+NEW WHITE PAINT SECTION
 ========================= */
-.btn{
-  padding:12px 18px;
-  background:#1f6f78;
-  color:white;
-  border:none;
-  border-radius:20px;
-  cursor:pointer;
+.paint-white{
+  background:white;
+  position:relative;
+  overflow:hidden;
 }
+
+.splash{
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  filter:blur(80px);
+  opacity:.25;
+  animation:float 14s infinite ease-in-out;
+}
+
+.splash:nth-child(1){background:#ff5c7a;top:10%;left:20%}
+.splash:nth-child(2){background:#1f6f78;top:50%;left:60%}
+.splash:nth-child(3){background:#d06b3d;top:30%;left:40%}
 
 </style>
 </head>
@@ -233,7 +235,7 @@ BUTTON
 
 <div class="loader">BE UNSRS</div>
 
-<!-- PAINT -->
+<!-- BACKGROUND -->
 <div class="paint-bg">
   <div class="blob"></div>
   <div class="blob"></div>
@@ -263,11 +265,6 @@ BUTTON
       <div class="caption">Street culture</div>
     </div>
 
-    <div class="polaroid" style="--r:-2deg">
-      <img class="photo" src="https://picsum.photos/300/200?3"/>
-      <div class="caption">Chaos memory</div>
-    </div>
-
   </div>
 </section>
 
@@ -277,7 +274,6 @@ BUTTON
   <div class="cartoon">
     <div class="sticker">PLAY</div>
     <div class="sticker">FUN</div>
-    <div class="sticker">LOL</div>
   </div>
 </section>
 
@@ -289,53 +285,59 @@ BUTTON
   </div>
 </section>
 
-<!-- VINYL SPOTIFY SECTION -->
+<!-- VINYL (NOW PLAYS AUDIO) -->
 <section class="vinyl-section">
-  <h2>🎵 Listen on Spotify</h2>
+  <h2>🎵 Vinyl Player</h2>
 
   <div class="vinyl" id="vinyl">
     <div class="record"></div>
     <div class="label">PLAY</div>
   </div>
 
-  <button class="btn" onclick="openSpotify()">Connect Spotify</button>
+  <audio id="audio" src="yourz.mp3"></audio>
 </section>
 
-<!-- POSTCARD COLLAGE -->
+<!-- POSTCARD COLLAGE (UPDATED) -->
 <section>
   <h2>🖼 Postcard Collage</h2>
+  <div class="postcard"></div>
+</section>
 
-  <div class="postcard">
-    <img src="https://picsum.photos/300/200?10"/>
-    <img src="https://picsum.photos/300/200?11"/>
-    <img src="https://picsum.photos/300/200?12"/>
-    <img src="https://picsum.photos/300/200?13"/>
-    <img src="https://picsum.photos/300/200?14"/>
-    <img src="https://picsum.photos/300/200?15"/>
-  </div>
+<!-- NEW WHITE PAINT SECTION -->
+<section class="paint-white">
+  <div class="splash"></div>
+  <div class="splash"></div>
+  <div class="splash"></div>
+
+  <h2>🎨 Creative Splash Space</h2>
+  <p>pure experimentation, color, chaos, and flow.</p>
 </section>
 
 <script>
 
 /* loader */
-window.onload = ()=>{
+window.onload=()=>{
   setTimeout(()=>{
     document.querySelector(".loader").style.display="none";
   },1000);
 };
 
-/* vinyl animation */
+/* VINYL AUDIO PLAY */
 const vinyl=document.getElementById("vinyl");
+const audio=document.getElementById("audio");
+
+let playing=false;
 
 vinyl.onclick=()=>{
-  vinyl.classList.toggle("playing");
-  openSpotify();
+  if(!playing){
+    audio.play();
+    vinyl.classList.add("playing");
+  }else{
+    audio.pause();
+    vinyl.classList.remove("playing");
+  }
+  playing=!playing;
 };
-
-/* spotify redirect (placeholder) */
-function openSpotify(){
-  window.open("https://open.spotify.com/login","_blank");
-}
 
 </script>
 
