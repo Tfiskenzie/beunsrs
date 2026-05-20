@@ -22,7 +22,31 @@ body{
   transition:1s ease;
 }
 
-/* DARK MODE */
+/* =========================
+SKELETON LOADER
+========================= */
+.skeleton{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:linear-gradient(90deg,#eee,#f5f5f5,#eee);
+  background-size:200% 100%;
+  animation:shimmer 1.4s infinite linear;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+  letter-spacing:6px;
+}
+
+@keyframes shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+
+/* =========================
+DARK MODE
+========================= */
 body.dark{
   color:#e6e6ff;
   background:
@@ -32,45 +56,45 @@ body.dark{
 }
 
 /* =========================
-MENU (FIXED)
+MENU
 ========================= */
 .menu-btn{
   position:fixed;
   top:20px;
   left:20px;
-  z-index:9999;
-  width:45px;
-  height:45px;
+  z-index:10000;
+  width:50px;
+  height:50px;
   border:none;
-  background:rgba(255,255,255,.3);
+  background:rgba(255,255,255,.6);
   backdrop-filter:blur(10px);
-  border-radius:10px;
-  cursor:pointer;
+  border-radius:12px;
   font-size:20px;
+  cursor:pointer;
 }
 
 .menu{
   position:fixed;
   top:0;
-  left:-260px;
-  width:240px;
+  left:-280px;
+  width:260px;
   height:100vh;
-  background:#111;
+  background:rgba(10,10,15,.95);
   color:white;
-  padding:80px 20px;
+  padding:90px 25px;
   transition:.5s ease;
-  z-index:9998;
+  z-index:9999;
 }
 
 .menu a{
   display:block;
   color:white;
-  margin:15px 0;
   text-decoration:none;
-  font-weight:600;
+  margin:15px 0;
+  font-size:18px;
 }
 
-.menu.active{ left:0 }
+.menu.active{left:0}
 
 /* =========================
 TOGGLE
@@ -79,18 +103,19 @@ TOGGLE
   position:fixed;
   top:20px;
   right:20px;
-  width:48px;
-  height:48px;
+  width:50px;
+  height:50px;
   border-radius:50%;
   border:none;
-  background:rgba(255,255,255,.3);
+  background:rgba(255,255,255,.6);
   backdrop-filter:blur(10px);
   cursor:pointer;
-  z-index:9999;
+  font-size:18px;
+  z-index:10000;
 }
 
 /* =========================
-HERO (UPDATED FONT + BG)
+HERO (UPDATED FONT)
 ========================= */
 .hero{
   height:100vh;
@@ -99,76 +124,67 @@ HERO (UPDATED FONT + BG)
   justify-content:center;
   text-align:center;
   position:relative;
-  overflow:hidden;
 }
 
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background:url("https://images.unsplash.com/photo-1526481280695-3c687fd5432c?q=80&w=2000&auto=format&fit=crop");
+  background:url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2000&auto=format&fit=crop");
   background-size:cover;
   background-position:center;
-  opacity:.35;
+  opacity:.28;
   z-index:-1;
 }
 
 .hero h1{
-  font-size:84px;
-  font-family:"Permanent Marker";
-  font-weight:800;
+  font-size:88px;
+  font-weight:900;
   letter-spacing:3px;
+  font-family:"Permanent Marker";
+  text-transform:uppercase;
+  text-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 /* =========================
-ABOUT
+SECTIONS
 ========================= */
-.about{
-  background:url("https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=2000&auto=format&fit=crop");
-  background-size:cover;
-  background-position:center;
+section{
+  padding:100px 10vw;
 }
 
 /* =========================
 SERVICES
 ========================= */
 .services{
-  background:url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop");
-  background-size:cover;
-  background-position:center;
+  background:rgba(255,255,255,.3);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  margin:40px 10vw;
+}
+
+.services h2{
+  margin-bottom:15px;
 }
 
 /* =========================
-SCRAPBOOK
+CONTACT
 ========================= */
-.scrapbook{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:18px;
+.contact{
+  background:rgba(0,0,0,.05);
+  border-radius:20px;
+  margin:40px 10vw;
+  text-align:center;
 }
 
-.polaroid{
-  background:white;
-  padding:10px;
-  position:relative;
-  transform:rotate(var(--r));
-  font-size:12px;
-}
-
-.polaroid img{
-  width:100%;
-  height:140px;
-  object-fit:cover;
+.contact h2{
+  margin-bottom:10px;
 }
 
 /* =========================
 VINYL
 ========================= */
 .vinyl-section{
-  background:url("https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=2000&auto=format&fit=crop");
-  background-size:cover;
-  background-position:center;
-
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -186,24 +202,52 @@ VINYL
 
 .vinyl.playing{
   animation:spin 2.5s linear infinite;
-  box-shadow:0 0 40px rgba(0,255,200,.6);
+  box-shadow:0 0 40px rgba(0,255,200,.5);
 }
 
-/* =========================
-CONTACT
-========================= */
-.contact{
-  background:url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2000&auto=format&fit=crop");
-  background-size:cover;
-  background-position:center;
-  text-align:center;
+.record{
+  position:absolute;
+  inset:18px;
+  border-radius:50%;
+  background:repeating-radial-gradient(circle,#222 0,#111 3px,#000 6px);
 }
 
-/* =========================
-SECTIONS
-========================= */
-section{
-  padding:110px 10vw;
+.label{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:800;
+}
+
+.waveform{
+  display:flex;
+  gap:3px;
+  height:60px;
+  align-items:flex-end;
+}
+
+.waveform span{
+  width:4px;
+  height:10px;
+  background:#1f6f78;
+}
+
+.waveform.playing span{
+  animation:wave .8s infinite ease-in-out;
+}
+
+/* animations */
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
+}
+
+@keyframes wave{
+  0%,100%{height:10px}
+  50%{height:55px}
 }
 
 </style>
@@ -211,10 +255,12 @@ section{
 
 <body>
 
-<!-- MENU BUTTON -->
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
+<!-- LOADER -->
+<div class="skeleton" id="skeleton">LOADING BE UNSRS...</div>
 
 <!-- MENU -->
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
 <div class="menu" id="menu">
   <a href="#">Home</a>
   <a href="#">Blog</a>
@@ -235,44 +281,20 @@ section{
 </section>
 
 <!-- ABOUT -->
-<section class="about">
-  <h2>About Us</h2>
-  <p>We build playful digital experiences for brands that refuse to be boring.</p>
-</section>
-
-<!-- SCRAPBOOK -->
 <section>
-  <h2>Scrapbook</h2>
-  <div class="scrapbook">
-
-    <div class="polaroid" style="--r:-4deg">
-      <img src="https://picsum.photos/300/200?1"/>
-    </div>
-
-    <div class="polaroid" style="--r:3deg">
-      <img src="https://picsum.photos/300/200?2"/>
-    </div>
-
-    <div class="polaroid" style="--r:-2deg">
-      <img src="https://picsum.photos/300/200?3"/>
-    </div>
-
-    <div class="polaroid" style="--r:2deg">
-      <img src="https://picsum.photos/300/200?4"/>
-    </div>
-
-  </div>
+  <h2>About Us</h2>
+  <p>We build playful digital worlds where brands become experiences instead of static websites.</p>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES (NEW) -->
 <section class="services">
   <h2>Services</h2>
   <p>
-    • Web design & development  
-    • Creative brand storytelling  
-    • Event & campaign landing pages  
-    • Interactive experiences  
-    • Digital identity systems  
+    • Web Design & Development <br/>
+    • Creative Brand Identity <br/>
+    • Interactive Landing Pages <br/>
+    • Campaign Strategy <br/>
+    • Digital Experiences & Storytelling
   </p>
 </section>
 
@@ -286,39 +308,55 @@ section{
   </div>
 
   <audio id="audio" src="yourz.mp3"></audio>
-
+  <div class="waveform" id="waveform"></div>
 </section>
 
-<!-- CONTACT -->
+<!-- CONTACT (NEW) -->
 <section class="contact">
   <h2>Contact Us</h2>
-  <p>Let’s build something chaotic and unforgettable.</p>
-
-  <p>Instagram | Twitter | Email | WhatsApp</p>
+  <p>Let’s build something wild, creative, and unforgettable.</p>
+  <p>Instagram • Twitter • Email • WhatsApp</p>
 </section>
 
 <script>
 
+/* loader */
+window.onload=()=>{
+  setTimeout(()=>{
+    document.getElementById("skeleton").style.display="none";
+  },1200);
+};
+
+/* menu */
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("active");
 }
 
+/* dark mode */
 function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
+/* vinyl */
 const vinyl=document.getElementById("vinyl");
 const audio=document.getElementById("audio");
+const waveform=document.getElementById("waveform");
 
 let playing=false;
+
+for(let i=0;i<18;i++){
+  waveform.innerHTML += "<span></span>";
+}
 
 vinyl.onclick=()=>{
   if(!playing){
     audio.play();
     vinyl.classList.add("playing");
+    waveform.classList.add("playing");
   }else{
     audio.pause();
     vinyl.classList.remove("playing");
+    waveform.classList.remove("playing");
   }
   playing=!playing;
 };
