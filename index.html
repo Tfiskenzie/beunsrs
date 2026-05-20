@@ -22,45 +22,68 @@ body{
   transition:1s ease;
 }
 
-/* =========================
-FULL DARK MODE BACKGROUND REPLACEMENT
-========================= */
+/* DARK MODE */
 body.dark{
   color:#e6e6ff;
   background:
     radial-gradient(circle at 20% 20%, rgba(120,160,255,.25), transparent 40%),
     radial-gradient(circle at 80% 30%, rgba(180,120,255,.18), transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(255,255,255,.08), transparent 50%),
-    linear-gradient(180deg,#02030a,#000000);
+    linear-gradient(180deg,#02030a,#000);
 }
 
+/* stars */
 body.dark::before{
   content:"";
   position:fixed;
   inset:0;
   background:
     radial-gradient(1px 1px at 10% 20%, #fff, transparent),
-    radial-gradient(1px 1px at 25% 70%, #fff, transparent),
-    radial-gradient(1px 1px at 60% 40%, #fff, transparent),
-    radial-gradient(1px 1px at 80% 80%, #fff, transparent),
-    radial-gradient(1px 1px at 40% 10%, #fff, transparent),
-    radial-gradient(1px 1px at 70% 20%, #fff, transparent),
-    radial-gradient(1px 1px at 30% 90%, #fff, transparent);
-  opacity:.6;
+    radial-gradient(1px 1px at 70% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 80%, #fff, transparent);
   pointer-events:none;
+  opacity:.6;
 }
 
-body.dark::after{
-  content:"";
+/* =========================
+MENU
+========================= */
+.menu-btn{
   position:fixed;
-  top:8%;
-  right:10%;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  background:radial-gradient(circle,#ffffff 25%, rgba(255,255,255,.08) 60%, transparent 70%);
-  opacity:.9;
-  pointer-events:none;
+  top:20px;
+  left:20px;
+  z-index:9999;
+  width:45px;
+  height:45px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  background:#1f6f78;
+  color:#fff;
+  font-size:18px;
+}
+
+.menu{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:240px;
+  height:100vh;
+  background:#111;
+  color:white;
+  padding:80px 20px;
+  transition:.5s ease;
+  z-index:9998;
+}
+
+.menu.active{
+  left:0;
+}
+
+.menu a{
+  display:block;
+  color:white;
+  text-decoration:none;
+  margin:15px 0;
 }
 
 /* =========================
@@ -70,76 +93,29 @@ TOGGLE
   position:fixed;
   top:20px;
   right:20px;
-  z-index:9999;
   width:48px;
   height:48px;
   border-radius:50%;
   border:none;
-  cursor:pointer;
   background:#1f6f78;
   color:white;
-  font-size:18px;
-}
-
-/* =========================
-LIGHT BACKGROUND
-========================= */
-.paint-bg{
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(255,92,122,.35), transparent 40%),
-    radial-gradient(circle at 80% 30%, rgba(31,111,120,.35), transparent 45%),
-    radial-gradient(circle at 40% 80%, rgba(208,107,61,.35), transparent 45%),
-    linear-gradient(180deg,#fff6e6,#f7f1e1);
-  transition:1s ease;
-}
-
-body.dark .paint-bg{
-  opacity:0;
-}
-
-/* =========================
-LOADER
-========================= */
-.loader{
-  position:fixed;
-  inset:0;
-  background:#f7f1e1;
+  cursor:pointer;
   z-index:9999;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:30px;
-  letter-spacing:10px;
-}
-
-body.dark .loader{
-  background:#02030a;
-  color:#fff;
 }
 
 /* =========================
-SECTIONS
-========================= */
-section{
-  padding:120px 10vw;
-}
-
-/* =========================
-HERO
+HERO (UPDATED POSITION)
 ========================= */
 .hero{
   height:100vh;
   display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+  align-items:flex-start;
+  justify-content:flex-start;
+  padding:120px 10vw;
 }
 
 .hero h1{
-  font-size:60px;
+  font-size:40px;
   font-family:"Permanent Marker";
 }
 
@@ -155,13 +131,6 @@ SCRAPBOOK
 .polaroid{
   background:white;
   padding:12px;
-  box-shadow:0 20px 40px rgba(0,0,0,.1);
-  transform:rotate(var(--r));
-}
-
-body.dark .polaroid{
-  background:#0b0f1f;
-  color:#e6e6ff;
 }
 
 /* =========================
@@ -178,9 +147,15 @@ VINYL
   width:240px;
   height:240px;
   border-radius:50%;
-  background:#111;
-  cursor:pointer;
+  background:radial-gradient(circle,#111 30%,#000 70%);
   position:relative;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.vinyl.playing{
+  animation:spin 2.5s linear infinite;
+  box-shadow:0 0 40px rgba(0,255,200,.6);
 }
 
 .record{
@@ -200,8 +175,22 @@ VINYL
   font-weight:800;
 }
 
-.vinyl.playing{
-  animation:spin 2.5s linear infinite;
+/* waveform */
+.waveform{
+  display:flex;
+  gap:3px;
+  height:60px;
+  align-items:flex-end;
+}
+
+.waveform span{
+  width:4px;
+  height:10px;
+  background:#1f6f78;
+}
+
+.waveform.playing span{
+  animation:wave .8s infinite ease-in-out;
 }
 
 @keyframes spin{
@@ -209,70 +198,14 @@ VINYL
   to{transform:rotate(360deg)}
 }
 
-/* =========================
-WAVEFORM
-========================= */
-.waveform{
-  display:flex;
-  gap:3px;
-  align-items:flex-end;
-  height:60px;
-  margin-top:10px;
-}
-
-.waveform span{
-  width:4px;
-  height:10px;
-  background:#1f6f78;
-  border-radius:2px;
-}
-
-.waveform.playing span{
-  animation:wave .8s infinite ease-in-out;
-}
-
 @keyframes wave{
   0%,100%{height:10px}
   50%{height:55px}
 }
 
-/* =========================
-ENERGY MAP (ADDED SECTION)
-========================= */
-
-.energy-section{
-  text-align:center;
-}
-
-.energy-map{
-  margin-top:30px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.dot{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:#ff5c7a;
-  animation:energyPulse 1.2s infinite ease-in-out;
-  box-shadow:0 0 10px rgba(255,92,122,.6);
-}
-
-.dot:nth-child(2){background:#1f6f78;animation-delay:.1s}
-.dot:nth-child(3){background:#d06b3d;animation-delay:.2s}
-.dot:nth-child(4){animation-delay:.3s}
-.dot:nth-child(5){animation-delay:.4s}
-.dot:nth-child(6){animation-delay:.5s}
-.dot:nth-child(7){animation-delay:.6s}
-.dot:nth-child(8){animation-delay:.7s}
-
-@keyframes energyPulse{
-  0%,100%{transform:scale(1);opacity:.5}
-  50%{transform:scale(2);opacity:1}
+/* SECTIONS */
+section{
+  padding:100px 10vw;
 }
 
 </style>
@@ -280,12 +213,22 @@ ENERGY MAP (ADDED SECTION)
 
 <body>
 
-<button class="toggle" onclick="document.body.classList.toggle('dark')">🌙</button>
+<!-- MENU BUTTON -->
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
 
-<div class="paint-bg"></div>
+<!-- MENU -->
+<div class="menu" id="menu">
+  <a href="#">Home</a>
+  <a href="#">Blog</a>
+  <a href="#">Services</a>
+  <a href="#">About</a>
+  <a href="#">Campaigns</a>
+</div>
 
-<div class="loader">BE UNSRS</div>
+<!-- DARK TOGGLE -->
+<button class="toggle" onclick="toggleDark()">🌙</button>
 
+<!-- HERO -->
 <section class="hero">
   <div>
     <h1>BE UNSRS</h1>
@@ -293,45 +236,60 @@ ENERGY MAP (ADDED SECTION)
   </div>
 </section>
 
+<!-- ABOUT -->
+<section>
+  <h2>About Us</h2>
+  <p>We are BE UNSRS — a creative chaos lab building playful digital experiences.</p>
+</section>
+
+<!-- SERVICES -->
+<section>
+  <h2>Services</h2>
+  <p>Branding • Campaigns • Digital Experiences • Web Chaos Design</p>
+</section>
+
+<!-- CAMPAIGNS -->
+<section>
+  <h2>Campaigns</h2>
+  <p>We design interactive campaigns that feel like games, not ads.</p>
+</section>
+
+<!-- SCRAPBOOK -->
 <section>
   <h2>Scrapbook</h2>
   <div class="scrapbook">
-    <div class="polaroid" style="--r:-4deg"><img src="https://picsum.photos/300/200?1"></div>
-    <div class="polaroid" style="--r:3deg"><img src="https://picsum.photos/300/200?2"></div>
+    <div class="polaroid"><img src="https://picsum.photos/300/200?1"/></div>
+    <div class="polaroid"><img src="https://picsum.photos/300/200?2"/></div>
   </div>
 </section>
 
+<!-- VINYL -->
 <section class="vinyl-section">
-  <h2>Vinyl Player</h2>
+  <h2>Music Player</h2>
 
-  <div class="vinyl" id="vinyl"></div>
-  <audio id="audio" src="yourz.mp3"></audio>
-  <div class="waveform" id="waveform"></div>
-</section>
-
-<!-- ✅ ENERGY MAP SECTION -->
-<section class="energy-section">
-  <h2>⚡ Live Energy Map</h2>
-  <div class="energy-map">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+  <div class="vinyl" id="vinyl">
+    <div class="record"></div>
+    <div class="label">PLAY</div>
   </div>
+
+  <audio id="audio" src="yourz.mp3"></audio>
+
+  <div class="waveform" id="waveform"></div>
 </section>
 
 <script>
 
-window.onload=()=>{
-  setTimeout(()=>{
-    document.querySelector(".loader").style.display="none";
-  },1000);
-};
+/* MENU */
+function toggleMenu(){
+  document.getElementById("menu").classList.toggle("active");
+}
 
+/* DARK MODE */
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+/* VINYL */
 const vinyl=document.getElementById("vinyl");
 const audio=document.getElementById("audio");
 const waveform=document.getElementById("waveform");
