@@ -22,28 +22,6 @@ body{
   transition:1s ease;
 }
 
-/* =========================
-SKELETON LOADER (NEW)
-========================= */
-.skeleton{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  background:linear-gradient(90deg,#eee,#f5f5f5,#eee);
-  background-size:200% 100%;
-  animation:shimmer 1.4s infinite linear;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  letter-spacing:6px;
-}
-
-@keyframes shimmer{
-  0%{background-position:200% 0}
-  100%{background-position:-200% 0}
-}
-
 /* DARK MODE */
 body.dark{
   color:#e6e6ff;
@@ -101,15 +79,16 @@ TOGGLE
 }
 
 /* =========================
-HERO
+HERO (UPDATED)
 ========================= */
 .hero{
   height:100vh;
   display:flex;
-  align-items:center;
-  justify-content:center;
+  align-items:center;        /* CENTER FIX */
+  justify-content:center;    /* CENTER FIX */
   text-align:center;
   position:relative;
+  overflow:hidden;
 }
 
 .hero::before{
@@ -124,22 +103,43 @@ HERO
 }
 
 .hero h1{
-  font-size:72px;
+  font-size:72px;            /* INCREASED */
   font-family:"Permanent Marker";
+  letter-spacing:4px;
 }
 
 /* =========================
-SCRAPBOOK
+SCRAPBOOK (UPDATED)
 ========================= */
 .scrapbook{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); /* SMALLER */
   gap:18px;
 }
 
 .polaroid{
   background:white;
   padding:10px;
+  position:relative;
+  transform:rotate(var(--r));
+  font-size:12px;
+}
+
+/* image smaller */
+.polaroid img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  display:block;
+}
+
+/* handwritten quote */
+.polaroid small{
+  display:block;
+  margin-top:8px;
+  font-family:"Permanent Marker";
+  font-size:12px;
+  color:#333;
 }
 
 /* =========================
@@ -159,11 +159,12 @@ VINYL
   background:radial-gradient(circle,#111 30%,#000 70%);
   position:relative;
   cursor:pointer;
+  transition:.3s;
 }
 
 .vinyl.playing{
   animation:spin 2.5s linear infinite;
-  box-shadow:0 0 40px rgba(0,255,200,.5);
+  box-shadow:0 0 40px rgba(0,255,200,.6);
 }
 
 .record{
@@ -200,33 +201,6 @@ VINYL
   animation:wave .8s infinite ease-in-out;
 }
 
-/* =========================
-SERVICES (NEW)
-========================= */
-.services{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-
-.service-card{
-  padding:20px;
-  background:rgba(255,255,255,.7);
-  border-radius:10px;
-}
-
-/* =========================
-CONTACT (NEW)
-========================= */
-.contact{
-  text-align:center;
-}
-
-.contact p{
-  margin-top:10px;
-  opacity:.8;
-}
-
 /* animations */
 @keyframes spin{
   from{transform:rotate(0deg)}
@@ -238,6 +212,7 @@ CONTACT (NEW)
   50%{height:55px}
 }
 
+/* SECTIONS */
 section{
   padding:100px 10vw;
 }
@@ -247,14 +222,10 @@ section{
 
 <body>
 
-<!-- SKELETON LOADER -->
-<div class="skeleton" id="skeleton">
-  LOADING BE UNSRS...
-</div>
-
-<!-- MENU -->
+<!-- MENU BUTTON -->
 <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
+<!-- MENU -->
 <div class="menu" id="menu">
   <a href="#">Home</a>
   <a href="#">Blog</a>
@@ -277,15 +248,35 @@ section{
 <!-- ABOUT -->
 <section>
   <h2>About Us</h2>
-  <p>We build playful digital worlds where brands become experiences.</p>
+  <p>We build playful digital worlds where brands, people and ideas turn into experiences instead of static websites.</p>
 </section>
 
-<!-- SCRAPBOOK -->
+<!-- SCRAPBOOK UPDATED -->
 <section>
   <h2>Scrapbook</h2>
+
   <div class="scrapbook">
-    <div class="polaroid"><img src="https://picsum.photos/300/200?1"/></div>
-    <div class="polaroid"><img src="https://picsum.photos/300/200?2"/></div>
+
+    <div class="polaroid" style="--r:-4deg">
+      <img src="https://picsum.photos/300/200?1"/>
+      <small>"create even when it makes no sense."</small>
+    </div>
+
+    <div class="polaroid" style="--r:3deg">
+      <img src="https://picsum.photos/300/200?2"/>
+      <small>"your chaos is your creative advantage."</small>
+    </div>
+
+    <div class="polaroid" style="--r:-2deg">
+      <img src="https://picsum.photos/300/200?3"/>
+      <small>"build what you wish existed."</small>
+    </div>
+
+    <div class="polaroid" style="--r:2deg">
+      <img src="https://picsum.photos/300/200?4"/>
+      <small>"stay weird. stay consistent."</small>
+    </div>
+
   </div>
 </section>
 
@@ -299,35 +290,11 @@ section{
   </div>
 
   <audio id="audio" src="yourz.mp3"></audio>
+
   <div class="waveform" id="waveform"></div>
 </section>
 
-<!-- SERVICES (NEW) -->
-<section>
-  <h2>Services</h2>
-
-  <div class="services">
-    <div class="service-card">Web Design</div>
-    <div class="service-card">Creative Direction</div>
-    <div class="service-card">Digital Marketing</div>
-  </div>
-</section>
-
-<!-- CONTACT (NEW) -->
-<section class="contact">
-  <h2>Contact Us</h2>
-  <p>Email: hello@beunsrs.com</p>
-  <p>Instagram | Twitter | WhatsApp</p>
-</section>
-
 <script>
-
-/* loader */
-window.onload=()=>{
-  setTimeout(()=>{
-    document.getElementById("skeleton").style.display="none";
-  },1200);
-};
 
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("active");
@@ -337,7 +304,6 @@ function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
-/* vinyl */
 const vinyl=document.getElementById("vinyl");
 const audio=document.getElementById("audio");
 const waveform=document.getElementById("waveform");
