@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BE UNSRS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=Permanent+Marker&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+<style>
+:root{
+  --paper:#f7f1e1;
+  --ink:#1b1c2a;
+  --accent:#ff5c7a;
+  --accent2:#1f6f78;
+  --gold:#d06b3d;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Syne;
+  background:linear-gradient(180deg,#f7f1e1,#f0e2c8);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* SCORE UI */
+#scoreBoard{
+  position:fixed;
+  top:15px;
+  right:15px;
+  background:white;
+  padding:10px 15px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.1);
+  font-weight:700;
+  z-index:999;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+
+.hero h1{
+  font-size:100px;
+  letter-spacing:10px;
+  margin:0;
+}
+
+.tagline{
+  font-family:"DM Serif Display";
+  opacity:.7;
+}
+
+.cta{
+  margin-top:20px;
+}
+
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:700;
+  margin:5px;
+}
+
+.primary{
+  background:var(--gold);
+  color:white;
+}
+
+.secondary{
+  background:white;
+  border:2px solid var(--accent2);
+}
+
+/* SCRAPBOOK CARDS */
+.section{
+  padding:100px 10vw;
+}
+
+.title{
+  font-size:40px;
+  margin-bottom:40px;
+}
+
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--paper);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:10px 10px 0 rgba(0,0,0,.1);
+  transform:rotate(var(--r,0deg));
+  cursor:pointer;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:scale(1.05) rotate(0deg);
+}
+
+/* GAME STYLES */
+.gameBox{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,.1);
+  text-align:center;
+}
+
+.word{
+  display:inline-block;
+  padding:10px 15px;
+  margin:5px;
+  background:var(--paper);
+  border-radius:20px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.word:hover{
+  transform:scale(1.1);
+}
+
+/* DRAG NOTES */
+.note{
+  padding:15px;
+  background:#fff8e7;
+  border-left:4px solid var(--accent);
+  margin:10px;
+  cursor:grab;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:80px;
+  background:#1b1c2a;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="scoreBoard">⭐ Score: <span id="score">0</span></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>BE UNSRS</h1>
+    <p class="tagline">design. chaos. culture. execution.</p>
+
+    <div class="cta">
+      <button class="primary" onclick="addScore(10)">Enter Scrapbook</button>
+      <button class="secondary" onclick="addScore(5)">Start Project</button>
+    </div>
+  </div>
+</section>
+
+<!-- GAME 1 -->
+<section class="section">
+  <div class="title">🧠 Game 1 — Find the Identity</div>
+  <div class="gameBox">
+    <p>Click words that define BE UNSRS</p>
+
+    <div id="words">
+      <span class="word" onclick="addScore(10)">chaos</span>
+      <span class="word" onclick="addScore(-5)">boring</span>
+      <span class="word" onclick="addScore(10)">culture</span>
+      <span class="word" onclick="addScore(10)">design</span>
+      <span class="word" onclick="addScore(-5)">normal</span>
+    </div>
+  </div>
+</section>
+
+<!-- GAME 2 -->
+<section class="section">
+  <div class="title">📒 Game 2 — Build the Manifesto</div>
+
+  <div class="gameBox">
+    <p>Rearrange ideas (click to collect points)</p>
+
+    <div class="note" onclick="addScore(5)">We build experiences</div>
+    <div class="note" onclick="addScore(5)">that feel alive</div>
+    <div class="note" onclick="addScore(5)">and intentionally chaotic</div>
+  </div>
+</section>
+
+<!-- GAME 3 -->
+<section class="section">
+  <div class="title">🎨 Game 3 — Service Match</div>
+
+  <div class="gameBox">
+    <p>Tap to understand what we do</p>
+
+    <div class="card" onclick="addScore(15)">Web Experiences → playful digital worlds</div>
+    <div class="card" onclick="addScore(15)">Brand Identity → visual culture systems</div>
+    <div class="card" onclick="addScore(15)">Creative Direction → storytelling control</div>
+  </div>
+</section>
+
+<!-- GAME 4 -->
+<section class="section">
+  <div class="title">🎲 Chaos Lab</div>
+
+  <div class="gameBox">
+    <p>Generate random creative ideas</p>
+
+    <button class="primary" onclick="generateIdea()">Generate Idea</button>
+
+    <p id="idea" style="margin-top:20px;font-weight:700;"></p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section">
+  <div class="title">💼 Let’s Build Something Real</div>
+
+  <div class="gameBox">
+    <p>Have a project?</p>
+    <button class="primary">WhatsApp Us</button>
+    <button class="secondary">Email</button>
+  </div>
+</section>
+
+<footer>
+  BE UNSRS — nothing here is normal.
+</footer>
+
+<script>
+
+let score = 0;
+
+function addScore(val){
+  score += val;
+  document.getElementById("score").innerText = score;
+}
+
+/* CHAOS IDEAS */
+const ideas = [
+  "A website that reacts to Lagos traffic noise",
+  "A fashion brand that only exists in motion blur",
+  "A digital diary that rearranges itself daily",
+  "A campaign for emotional recovery in Lagos rain"
+];
+
+function generateIdea(){
+  const idea = ideas[Math.floor(Math.random()*ideas.length)];
+  document.getElementById("idea").innerText = idea;
+  addScore(20);
+}
+
+/* GSAP ANIMATION */
+gsap.utils.toArray(".section").forEach(sec=>{
+  gsap.from(sec,{
+    opacity:0,
+    y:60,
+    duration:1,
+    scrollTrigger:{
+      trigger:sec,
+      start:"top 80%"
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>
