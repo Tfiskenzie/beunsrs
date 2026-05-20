@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 <style>
+
 /* =========================
 BASE
 ========================= */
@@ -30,7 +31,6 @@ PAINT BACKGROUND
   position:fixed;
   inset:0;
   z-index:-2;
-  overflow:hidden;
 }
 
 .blob{
@@ -53,44 +53,30 @@ PAINT BACKGROUND
 }
 
 /* =========================
-SKELETON LOADER
+LOADER
 ========================= */
-.skeleton{
-  background:linear-gradient(90deg,#eee,#f5f5f5,#eee);
-  background-size:200% 100%;
-  animation:shine 1.5s infinite linear;
-  border-radius:10px;
-}
-
-@keyframes shine{
-  0%{background-position:200% 0}
-  100%{background-position:-200% 0}
-}
-
 .loader{
   position:fixed;
   inset:0;
   background:#f7f1e1;
   z-index:9999;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-}
-
-.loader h1{
-  font-size:40px;
+  font-size:30px;
   letter-spacing:10px;
 }
 
 /* =========================
-LAYOUT
+SECTIONS
 ========================= */
 section{
   padding:120px 10vw;
 }
 
-/* HERO */
+/* =========================
+HERO (UPDATED FONT SIZE)
+========================= */
 .hero{
   height:100vh;
   display:flex;
@@ -100,8 +86,8 @@ section{
 }
 
 .hero h1{
-  font-size:100px;
-  letter-spacing:12px;
+  font-size:80px; /* REDUCED AS REQUESTED */
+  letter-spacing:10px;
 }
 
 /* =========================
@@ -118,11 +104,6 @@ SCRAPBOOK
   padding:12px;
   box-shadow:0 20px 40px rgba(0,0,0,.1);
   transform:rotate(var(--r));
-  transition:.3s;
-}
-
-.polaroid:hover{
-  transform:scale(1.05) rotate(0deg);
 }
 
 .photo{
@@ -137,34 +118,26 @@ SCRAPBOOK
 }
 
 /* =========================
-CARTOON SECTION
+CARTOON
 ========================= */
 .cartoon{
   background:#fff7e6;
   border-radius:40px;
   padding:60px;
   text-align:center;
-  position:relative;
 }
 
 .sticker{
   display:inline-block;
-  padding:10px 16px;
   background:#ff5c7a;
   color:white;
+  padding:10px 16px;
   border-radius:20px;
   margin:10px;
-  transform:rotate(-5deg);
-  animation:bounce 2s infinite;
-}
-
-@keyframes bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
 }
 
 /* =========================
-BUSINESS SECTION
+BUSINESS
 ========================= */
 .business{
   background:white;
@@ -172,35 +145,95 @@ BUSINESS SECTION
   box-shadow:0 20px 50px rgba(0,0,0,.08);
 }
 
-.business h2{
-  font-size:40px;
+/* =========================
+VINYL SPOTIFY SECTION (NEW)
+========================= */
+.vinyl-section{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
 }
 
-.card{
-  margin-top:20px;
-  padding:20px;
-  border-left:4px solid #1f6f78;
+.vinyl{
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  background:radial-gradient(circle,#111 30%,#000 70%);
+  position:relative;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.vinyl:hover{
+  transform:scale(1.05);
+}
+
+.record{
+  position:absolute;
+  inset:18px;
+  border-radius:50%;
+  background:repeating-radial-gradient(circle,#222 0,#111 3px,#000 6px);
+}
+
+.label{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-weight:800;
+}
+
+/* spinning */
+.vinyl.playing{
+  animation:spin 2.5s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg)}
+  to{transform:rotate(360deg)}
 }
 
 /* =========================
-REVEAL ANIMATIONS
+POSTCARD COLLAGE (NEW)
 ========================= */
-.reveal{
-  opacity:0;
-  transform:translateY(50px);
+.postcard{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  transform:rotate(-1deg);
 }
+
+.postcard img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+/* =========================
+BUTTON
+========================= */
+.btn{
+  padding:12px 18px;
+  background:#1f6f78;
+  color:white;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
-<div class="loader" id="loader">
-  <h1>BE UNSRS</h1>
-  <div class="skeleton" style="width:200px;height:20px;margin-top:20px"></div>
-</div>
+<div class="loader">BE UNSRS</div>
 
-<!-- PAINT BACKGROUND -->
+<!-- PAINT -->
 <div class="paint-bg">
   <div class="blob"></div>
   <div class="blob"></div>
@@ -208,7 +241,7 @@ REVEAL ANIMATIONS
 </div>
 
 <!-- HERO -->
-<section class="hero reveal">
+<section class="hero">
   <div>
     <h1>BE UNSRS</h1>
     <p>creative chaos. structured imagination.</p>
@@ -216,55 +249,70 @@ REVEAL ANIMATIONS
 </section>
 
 <!-- SCRAPBOOK -->
-<section class="reveal">
+<section>
   <h2>📒 Scrapbook</h2>
   <div class="scrapbook">
 
-    <div class="polaroid" style="--r:-5deg">
+    <div class="polaroid" style="--r:-4deg">
       <img class="photo" src="https://picsum.photos/300/200?1"/>
       <div class="caption">Lagos nights</div>
     </div>
 
-    <div class="polaroid" style="--r:4deg">
+    <div class="polaroid" style="--r:3deg">
       <img class="photo" src="https://picsum.photos/300/200?2"/>
       <div class="caption">Street culture</div>
     </div>
 
-    <div class="polaroid" style="--r:-3deg">
+    <div class="polaroid" style="--r:-2deg">
       <img class="photo" src="https://picsum.photos/300/200?3"/>
-      <div class="caption">Memories</div>
-    </div>
-
-    <div class="polaroid" style="--r:6deg">
-      <img class="photo" src="https://picsum.photos/300/200?4"/>
-      <div class="caption">Chaos moments</div>
+      <div class="caption">Chaos memory</div>
     </div>
 
   </div>
 </section>
 
 <!-- CARTOON -->
-<section class="reveal">
+<section>
   <h2>🧸 Cartoon World</h2>
-
   <div class="cartoon">
-    <div class="sticker">HAHA</div>
     <div class="sticker">PLAY</div>
     <div class="sticker">FUN</div>
-
-    <p style="margin-top:30px">
-      A playful universe where ideas don’t behave.
-    </p>
+    <div class="sticker">LOL</div>
   </div>
 </section>
 
 <!-- BUSINESS -->
-<section class="business reveal">
-  <h2>💼 Serious Mode</h2>
+<section>
+  <h2>💼 Business Mode</h2>
+  <div class="business">
+    <p style="padding:20px">Structured creative services for modern brands.</p>
+  </div>
+</section>
 
-  <div class="card">Web Experiences — immersive digital storytelling</div>
-  <div class="card">Brand Identity — structured visual systems</div>
-  <div class="card">Creative Direction — controlled chaos execution</div>
+<!-- VINYL SPOTIFY SECTION -->
+<section class="vinyl-section">
+  <h2>🎵 Listen on Spotify</h2>
+
+  <div class="vinyl" id="vinyl">
+    <div class="record"></div>
+    <div class="label">PLAY</div>
+  </div>
+
+  <button class="btn" onclick="openSpotify()">Connect Spotify</button>
+</section>
+
+<!-- POSTCARD COLLAGE -->
+<section>
+  <h2>🖼 Postcard Collage</h2>
+
+  <div class="postcard">
+    <img src="https://picsum.photos/300/200?10"/>
+    <img src="https://picsum.photos/300/200?11"/>
+    <img src="https://picsum.photos/300/200?12"/>
+    <img src="https://picsum.photos/300/200?13"/>
+    <img src="https://picsum.photos/300/200?14"/>
+    <img src="https://picsum.photos/300/200?15"/>
+  </div>
 </section>
 
 <script>
@@ -272,22 +320,22 @@ REVEAL ANIMATIONS
 /* loader */
 window.onload = ()=>{
   setTimeout(()=>{
-    document.getElementById("loader").style.display="none";
-  },1200);
-}
+    document.querySelector(".loader").style.display="none";
+  },1000);
+};
 
-/* scroll reveal */
-gsap.utils.toArray(".reveal").forEach(el=>{
-  gsap.to(el,{
-    scrollTrigger:{
-      trigger:el,
-      start:"top 80%"
-    },
-    opacity:1,
-    y:0,
-    duration:1
-  });
-});
+/* vinyl animation */
+const vinyl=document.getElementById("vinyl");
+
+vinyl.onclick=()=>{
+  vinyl.classList.toggle("playing");
+  openSpotify();
+};
+
+/* spotify redirect (placeholder) */
+function openSpotify(){
+  window.open("https://open.spotify.com/login","_blank");
+}
 
 </script>
 
