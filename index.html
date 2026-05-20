@@ -57,8 +57,8 @@ MENU
   border-radius:10px;
   border:none;
   cursor:pointer;
-  background:#1f6f78;
-  color:#fff;
+  background:transparent; /* UPDATED */
+  color:#1f6f78;
   font-size:18px;
 }
 
@@ -95,14 +95,14 @@ TOGGLE
   height:48px;
   border-radius:50%;
   border:none;
-  background:#1f6f78;
-  color:white;
+  background:transparent; /* UPDATED */
+  color:#1f6f78;
   cursor:pointer;
   z-index:9999;
 }
 
 /* =========================
-HERO + HERO IMAGE (NEW)
+HERO (UPDATED IMAGE)
 ========================= */
 .hero{
   height:100vh;
@@ -114,15 +114,15 @@ HERO + HERO IMAGE (NEW)
   overflow:hidden;
 }
 
-/* HERO IMAGE LAYER */
+/* HERO IMAGE BACKGROUND */
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background:url("https://images.unsplash.com/photo-1526481280695-3c687fd5432c?q=80&w=2000&auto=format&fit=crop");
+  background:url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2000&auto=format&fit=crop");
   background-size:cover;
   background-position:center;
-  opacity:.25;
+  opacity:.28;
   filter:contrast(1.1) saturate(1.2);
   z-index:-1;
 }
@@ -133,7 +133,7 @@ HERO + HERO IMAGE (NEW)
 }
 
 /* =========================
-SCRAPBOOK (UPGRADED)
+SCRAPBOOK
 ========================= */
 .scrapbook{
   display:grid;
@@ -146,14 +146,6 @@ SCRAPBOOK (UPGRADED)
   padding:12px;
   position:relative;
   transform:rotate(var(--r));
-}
-
-.polaroid small{
-  display:block;
-  margin-top:8px;
-  font-size:12px;
-  opacity:.8;
-  font-style:italic;
 }
 
 /* =========================
@@ -198,6 +190,7 @@ VINYL
   font-weight:800;
 }
 
+/* waveform */
 .waveform{
   display:flex;
   gap:3px;
@@ -225,9 +218,7 @@ VINYL
   50%{height:55px}
 }
 
-/* =========================
-SECTIONS
-========================= */
+/* SECTIONS */
 section{
   padding:100px 10vw;
 }
@@ -266,45 +257,26 @@ section{
   <p>We build playful digital worlds where brands, people and ideas turn into experiences instead of static websites.</p>
 </section>
 
-<!-- SERVICES (ENHANCED) -->
+<!-- SERVICES -->
 <section>
   <h2>Services</h2>
   <p>
-    • Website design & development (modern, immersive landing pages)<br>
-    • SaaS & B2B platform development for businesses (events, bookings, loyalty systems)<br>
-    • Event & experience website systems (ticketing, campaigns, marketing funnels)<br>
-    • Brand identity + digital storytelling (visual direction & creative campaigns)<br>
-    • Social media marketing & creative content strategy<br>
-    • UI/UX design for high-conversion web products
+    Website development • SaaS platforms • Event systems • Branding • Digital marketing • Creative direction
   </p>
 </section>
 
 <!-- CAMPAIGNS -->
 <section>
   <h2>Campaigns</h2>
-  <p>We create interactive digital campaigns that feel like games, drops, or experiences—not ads.</p>
+  <p>Interactive digital experiences designed like games, not ads.</p>
 </section>
 
 <!-- SCRAPBOOK -->
 <section>
   <h2>Scrapbook</h2>
   <div class="scrapbook">
-
-    <div class="polaroid" style="--r:-3deg">
-      <img src="https://picsum.photos/300/200?1"/>
-      <small>"Even chaos has direction — keep building."</small>
-    </div>
-
-    <div class="polaroid" style="--r:4deg">
-      <img src="https://picsum.photos/300/200?2"/>
-      <small>"Create like nobody is watching."</small>
-    </div>
-
-    <div class="polaroid" style="--r:-2deg">
-      <img src="https://picsum.photos/300/200?3"/>
-      <small>"Your ideas are already valid — execute them."</small>
-    </div>
-
+    <div class="polaroid"><img src="https://picsum.photos/300/200?1"/></div>
+    <div class="polaroid"><img src="https://picsum.photos/300/200?2"/></div>
   </div>
 </section>
 
@@ -324,17 +296,14 @@ section{
 
 <script>
 
-/* MENU */
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("active");
 }
 
-/* DARK MODE */
 function toggleDark(){
   document.body.classList.toggle("dark");
 }
 
-/* VINYL */
 const vinyl=document.getElementById("vinyl");
 const audio=document.getElementById("audio");
 const waveform=document.getElementById("waveform");
