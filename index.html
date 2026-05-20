@@ -19,21 +19,21 @@ body{
   overflow-x:hidden;
   color:#1b1c2a;
   background:#f7f1e1;
-  transition:0.9s ease;
+  transition:1s ease;
 }
 
 /* =========================
-DARK MODE (FULL SPACE THEME BACKGROUND CHANGE)
+FULL DARK MODE BACKGROUND REPLACEMENT (IMPORTANT FIX)
 ========================= */
 body.dark{
   color:#e6e6ff;
 
-  /* full space background */
+  /* FULL WEBSITE BACKGROUND REPLACEMENT */
   background:
-    radial-gradient(circle at 20% 20%, rgba(120,160,255,.2), transparent 40%),
+    radial-gradient(circle at 20% 20%, rgba(120,160,255,.25), transparent 40%),
     radial-gradient(circle at 80% 30%, rgba(180,120,255,.18), transparent 45%),
     radial-gradient(circle at 50% 80%, rgba(255,255,255,.08), transparent 50%),
-    linear-gradient(180deg,#05060f,#000000);
+    linear-gradient(180deg,#02030a,#000000);
 }
 
 /* stars layer */
@@ -46,8 +46,10 @@ body.dark::before{
     radial-gradient(1px 1px at 25% 70%, #fff, transparent),
     radial-gradient(1px 1px at 60% 40%, #fff, transparent),
     radial-gradient(1px 1px at 80% 80%, #fff, transparent),
-    radial-gradient(1px 1px at 40% 10%, #fff, transparent);
-  opacity:.55;
+    radial-gradient(1px 1px at 40% 10%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 20%, #fff, transparent),
+    radial-gradient(1px 1px at 30% 90%, #fff, transparent);
+  opacity:.6;
   pointer-events:none;
 }
 
@@ -55,15 +57,15 @@ body.dark::before{
 body.dark::after{
   content:"";
   position:fixed;
-  top:10%;
-  right:12%;
-  width:160px;
-  height:160px;
+  top:8%;
+  right:10%;
+  width:180px;
+  height:180px;
   border-radius:50%;
-  background:radial-gradient(circle,#ffffff 20%, rgba(255,255,255,.08) 60%, transparent 70%);
-  filter:blur(1px);
-  opacity:.85;
+  background:radial-gradient(circle,#ffffff 25%, rgba(255,255,255,.08) 60%, transparent 70%);
+  opacity:.9;
   pointer-events:none;
+  filter:blur(1px);
 }
 
 /* =========================
@@ -82,13 +84,10 @@ TOGGLE
   background:#1f6f78;
   color:white;
   font-size:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 
 /* =========================
-BACKGROUND (LIGHT MODE)
+LIGHT MODE BACKGROUND (FULLY REMAINS ONLY IN LIGHT MODE)
 ========================= */
 .paint-bg{
   position:fixed;
@@ -99,6 +98,12 @@ BACKGROUND (LIGHT MODE)
     radial-gradient(circle at 80% 30%, rgba(31,111,120,.35), transparent 45%),
     radial-gradient(circle at 40% 80%, rgba(208,107,61,.35), transparent 45%),
     linear-gradient(180deg,#fff6e6,#f7f1e1);
+  transition:1s ease;
+}
+
+/* hide light background in dark mode (IMPORTANT FIX) */
+body.dark .paint-bg{
+  opacity:0;
 }
 
 /* blobs */
@@ -134,6 +139,12 @@ LOADER
   align-items:center;
   font-size:30px;
   letter-spacing:10px;
+  transition:1s ease;
+}
+
+body.dark .loader{
+  background:#02030a;
+  color:#fff;
 }
 
 /* =========================
@@ -174,17 +185,12 @@ SCRAPBOOK
   padding:12px;
   box-shadow:0 20px 40px rgba(0,0,0,.1);
   transform:rotate(var(--r));
+  transition:1s ease;
 }
 
-.photo{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-}
-
-.caption{
-  font-family:"Permanent Marker";
-  padding:10px;
+body.dark .polaroid{
+  background:#0b0f1f;
+  color:#e6e6ff;
 }
 
 /* =========================
@@ -267,7 +273,7 @@ WAVEFORM
 <!-- TOGGLE -->
 <button class="toggle" onclick="toggleDark()">🌙</button>
 
-<!-- BACKGROUND -->
+<!-- LIGHT BACKGROUND -->
 <div class="paint-bg">
   <div class="blob"></div>
   <div class="blob"></div>
@@ -351,7 +357,7 @@ vinyl.onclick=()=>{
   playing=!playing;
 };
 
-/* DARK MODE TOGGLE */
+/* DARK MODE */
 function toggleDark(){
   document.body.classList.toggle("dark");
 }
