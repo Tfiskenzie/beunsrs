@@ -13,7 +13,7 @@
 <style>
 
 /* =========================
-BASE
+BASE (LIGHT MODE)
 ========================= */
 *{margin:0;padding:0;box-sizing:border-box}
 
@@ -22,6 +22,53 @@ body{
   background:#f7f1e1;
   overflow-x:hidden;
   color:#1b1c2a;
+  transition:0.8s ease;
+}
+
+/* =========================
+DARK MODE (SPACE THEME)
+========================= */
+body.dark{
+  background:#05060f;
+  color:#e6e6ff;
+}
+
+body.dark .blob{
+  background:#7c4dff !important;
+  opacity:.25;
+  filter:blur(140px);
+}
+
+/* =========================
+DARK MODE STAR FIELD
+========================= */
+body.dark::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(1px 1px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 60% 70%, white, transparent),
+    radial-gradient(1px 1px at 80% 20%, white, transparent),
+    radial-gradient(1px 1px at 40% 80%, white, transparent);
+  opacity:.4;
+  pointer-events:none;
+}
+
+/* =========================
+TOGGLE BUTTON
+========================= */
+.toggle{
+  position:fixed;
+  top:20px;
+  right:20px;
+  z-index:9999;
+  padding:10px 14px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:#1f6f78;
+  color:white;
 }
 
 /* =========================
@@ -31,6 +78,7 @@ PAINT BACKGROUND
   position:fixed;
   inset:0;
   z-index:-2;
+  transition:1s ease;
 }
 
 .blob{
@@ -41,6 +89,7 @@ PAINT BACKGROUND
   filter:blur(120px);
   opacity:.35;
   animation:float 18s infinite ease-in-out;
+  transition:1s ease;
 }
 
 .blob:nth-child(1){background:#ff5c7a;top:10%;left:10%}
@@ -118,35 +167,17 @@ SCRAPBOOK
 }
 
 /* =========================
-CARTOON
+ABOUT US (UPDATED)
 ========================= */
-.cartoon{
-  background:#fff7e6;
-  border-radius:40px;
-  padding:60px;
-  text-align:center;
-}
-
-.sticker{
-  display:inline-block;
-  background:#ff5c7a;
-  color:white;
-  padding:10px 16px;
-  border-radius:20px;
-  margin:10px;
-}
-
-/* =========================
-BUSINESS
-========================= */
-.business{
+.about{
   background:white;
   border-radius:20px;
   box-shadow:0 20px 50px rgba(0,0,0,.08);
+  padding:30px;
 }
 
 /* =========================
-VINYL (UPDATED TO PLAY AUDIO)
+VINYL
 ========================= */
 .vinyl-section{
   display:flex;
@@ -163,7 +194,6 @@ VINYL (UPDATED TO PLAY AUDIO)
   background:radial-gradient(circle,#111 30%,#000 70%);
   position:relative;
   cursor:pointer;
-  transition:.3s;
 }
 
 .record{
@@ -193,46 +223,32 @@ VINYL (UPDATED TO PLAY AUDIO)
 }
 
 /* =========================
-POSTCARD COLLAGE (UPDATED → SINGLE IMAGE)
+DARK MODE OVERRIDES
 ========================= */
-.postcard{
-  width:100%;
-  height:500px;
-  background:url("https://picsum.photos/1200/800?random=99");
-  background-size:cover;
-  background-position:center;
-  border-radius:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,.15);
+body.dark .about{
+  background:#0b0f1f;
+  color:#e6e6ff;
 }
 
-/* =========================
-NEW WHITE PAINT SECTION
-========================= */
-.paint-white{
-  background:white;
-  position:relative;
-  overflow:hidden;
+body.dark .polaroid{
+  background:#0b0f1f;
+  color:#e6e6ff;
 }
 
-.splash{
-  position:absolute;
-  width:300px;
-  height:300px;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:.25;
-  animation:float 14s infinite ease-in-out;
+body.dark .loader{
+  background:#05060f;
+  color:#e6e6ff;
 }
-
-.splash:nth-child(1){background:#ff5c7a;top:10%;left:20%}
-.splash:nth-child(2){background:#1f6f78;top:50%;left:60%}
-.splash:nth-child(3){background:#d06b3d;top:30%;left:40%}
 
 </style>
 </head>
 
 <body>
 
+<!-- TOGGLE -->
+<button class="toggle" onclick="toggleDark()">🌙 Dark Mode</button>
+
+<!-- LOADER -->
 <div class="loader">BE UNSRS</div>
 
 <!-- BACKGROUND -->
@@ -268,24 +284,17 @@ NEW WHITE PAINT SECTION
   </div>
 </section>
 
-<!-- CARTOON -->
+<!-- ABOUT US -->
 <section>
-  <h2>🧸 Cartoon World</h2>
-  <div class="cartoon">
-    <div class="sticker">PLAY</div>
-    <div class="sticker">FUN</div>
+  <h2>💼 About Us</h2>
+  <div class="about">
+    <p>
+      We build creative systems that blend culture, design, and storytelling into digital experiences.
+    </p>
   </div>
 </section>
 
-<!-- BUSINESS -->
-<section>
-  <h2>💼 Business Mode</h2>
-  <div class="business">
-    <p style="padding:20px">Structured creative services for modern brands.</p>
-  </div>
-</section>
-
-<!-- VINYL (NOW PLAYS AUDIO) -->
+<!-- VINYL -->
 <section class="vinyl-section">
   <h2>🎵 Vinyl Player</h2>
 
@@ -297,22 +306,6 @@ NEW WHITE PAINT SECTION
   <audio id="audio" src="yourz.mp3"></audio>
 </section>
 
-<!-- POSTCARD COLLAGE (UPDATED) -->
-<section>
-  <h2>🖼 Postcard Collage</h2>
-  <div class="postcard"></div>
-</section>
-
-<!-- NEW WHITE PAINT SECTION -->
-<section class="paint-white">
-  <div class="splash"></div>
-  <div class="splash"></div>
-  <div class="splash"></div>
-
-  <h2>🎨 Creative Splash Space</h2>
-  <p>pure experimentation, color, chaos, and flow.</p>
-</section>
-
 <script>
 
 /* loader */
@@ -322,7 +315,7 @@ window.onload=()=>{
   },1000);
 };
 
-/* VINYL AUDIO PLAY */
+/* vinyl play */
 const vinyl=document.getElementById("vinyl");
 const audio=document.getElementById("audio");
 
@@ -338,6 +331,11 @@ vinyl.onclick=()=>{
   }
   playing=!playing;
 };
+
+/* DARK MODE */
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
 
 </script>
 
